@@ -85,16 +85,35 @@ public class Game {
 
         // Print out possible actions to the user
         for (int i = 0; i < possibleActions.size(); i++) {
-            System.out.println(i+1+ ": " + possibleActions.get(i));
+            System.out.println(i + 1 + ": " + possibleActions.get(i));
         }
 
-        // todo do while loop below:
-        Scanner myScanner = new Scanner(System.in);
-        String input = myScanner.nextLine();
+        // Get user input, and continue to ask until a valid response is recorded.
+        String input;
+        do {
+            Scanner myScanner = new Scanner(System.in);
+            System.out.print("Please enter your choice: ");
+            input = myScanner.nextLine();
+        } while (!isActionInputValid(input));
 
 
         return true;
 
+    }
+
+    private static boolean isActionInputValid(String input) {
+        try {
+            int processedInput = Integer.parseInt(input);
+            if ((processedInput <= 0) || (processedInput > 5)) {
+                System.out.println("Invalid input. Please enter an integer between 1 - 5 and try again!");
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            // Input not valid
+            System.out.println("User input not recognised... Please enter an integer between 1 - 5 and try again!");
+            return false;
+        }
     }
 
     private void fishingInteraction() {
