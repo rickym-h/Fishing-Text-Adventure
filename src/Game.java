@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.function.Function;
 
 enum Location {
     FISHING_VILLAGE,
@@ -11,6 +15,11 @@ public class Game {
     private int money;
     private ArrayList<Fish> fishInventory;
     private boolean escaped = false;
+    private HashMap<Location,Integer> travelFees = new HashMap<Location,Integer>() {{
+        put(Location.FISHING_VILLAGE, 5);
+        put(Location.TRADING_VILLAGE, 10);
+        put(Location.DOCKS, 20);
+    }};
 
     Game() {
         // Constructor for new game instance
@@ -33,11 +42,68 @@ public class Game {
         // Returns true normally
         // Returns false if the player wants to save and quit.
         System.out.println("PLAYING GAME LOOP");
-        System.out.println("Forcing escape...");
-        this.escaped = true;
+        System.out.println("You have " + this.money + " coins. You have " + this.fishInventory.size() + " fish.");
+
+        // Get a list of all the 'things' the user can do.
+        ArrayList<String> possibleActions = new ArrayList<String>();
+
+        // 1: Interactions (Fishing or Trading or Escaping)
+        switch (this.location) {
+            case FISHING_VILLAGE:
+                possibleActions.add("Go Fishing!");
+                break;
+            case TRADING_VILLAGE:
+                possibleActions.add("Sell all fish in inventory.");
+                break;
+            case DOCKS:
+                possibleActions.add("ESCAPE!");
+                break;
+            default:
+        }
+        // 2: View Inventory
+        possibleActions.add("View Inventory");
+        // 3: Travel
+        // 4: Travel
+        for (Location loc : Location.values()) {
+            if (loc == this.location) {
+                continue;
+            }
+            switch (loc) {
+                case FISHING_VILLAGE:
+                    possibleActions.add("Travel to fishing village.");
+                    break;
+                case TRADING_VILLAGE:
+                    possibleActions.add("Travel to trading village.");
+                    break;
+                case DOCKS:
+                    possibleActions.add("Travel to docks.");
+                default:
+            }
+        }
+        // 5: Save+Quit
+        possibleActions.add("Save and Quit");
+
+        // Print out possible actions to the user
+        for (int i = 0; i < possibleActions.size(); i++) {
+            System.out.println(i+1+ ": " + possibleActions.get(i));
+        }
+
+        // todo do while loop below:
+        Scanner myScanner = new Scanner(System.in);
+        String input = myScanner.nextLine();
+
+
         return true;
 
     }
+
+    private void fishingInteraction() {
+        // Function which will perform the fishing interaction, and get a fish for the user.
+        Fish fish = new Fish(10);
+        this.fishInventory.add(fish);
+        // todo make it harder and value based on some minigame?
+    }
+
 
     public boolean hasWon() {
         return this.escaped;
