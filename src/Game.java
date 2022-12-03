@@ -1,3 +1,4 @@
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -96,9 +97,41 @@ public class Game {
             input = myScanner.nextLine();
         } while (!isActionInputValid(input));
 
+        // Takes the user input, and perform the relevant action
+        int choice = Integer.parseInt(input);
+        switch (choice) {
+            case 1:
+                // Perform the interaction
+                interactAction();
+                break;
+            case 2:
+                // View Inventory
+                break;
+            case 3:
+                // Travel to first location
+                break;
+            case 4:
+                // Travel to second location
+                break;
+            case 5:
+                // Save and Quit
+                break;
+            default:
+        }
 
         return true;
 
+    }
+
+    private void interactAction() {
+        // Attempts to interact, depending on the location
+        switch (this.location) {
+            case FISHING_VILLAGE:
+                fishingInteraction();
+            case TRADING_VILLAGE:
+            case DOCKS:
+            default:
+        }
     }
 
     private static boolean isActionInputValid(String input) {
@@ -120,8 +153,10 @@ public class Game {
         // Function which will perform the fishing interaction, and get a fish for the user.
         Fish fish = new Fish(10);
         this.fishInventory.add(fish);
+        System.out.println("You have gained a fish worth " + fish.getValue() + " coins!");
         // todo make it harder and value based on some minigame?
     }
+
 
 
     public boolean hasWon() {
