@@ -8,4 +8,9 @@ public class Fish {
     public int getValue() {
         return value;
     }
+
+    public String getName() {
+        // todo add custom names for each fish and value
+        return "Fish";
+    }
 }

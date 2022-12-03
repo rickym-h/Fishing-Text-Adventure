@@ -97,6 +97,8 @@ public class Game {
             input = myScanner.nextLine();
         } while (!isActionInputValid(input));
 
+        System.out.println();
+
         // Takes the user input, and perform the relevant action
         int choice = Integer.parseInt(input);
         switch (choice) {
@@ -106,6 +108,7 @@ public class Game {
                 break;
             case 2:
                 // View Inventory
+                viewInventory();
                 break;
             case 3:
                 // Travel to first location
@@ -123,13 +126,28 @@ public class Game {
 
     }
 
+    private void viewInventory() {
+        System.out.println("--------------------");
+        System.out.println("Player Inventory: " + money + " coins. " + fishInventory.size() + " fish.");
+        for (int i = 0; i < fishInventory.size(); i++) {
+            int viewIndex = i+1;
+            Fish f = fishInventory.get(i);
+            System.out.println("  " + viewIndex + ": " + f.getName() + " - (Value = " + f.getValue() + ")");
+        }
+        System.out.println("--------------------");
+    }
+
     private void interactAction() {
         // Attempts to interact, depending on the location
         switch (this.location) {
             case FISHING_VILLAGE:
                 fishingInteraction();
+                break;
             case TRADING_VILLAGE:
+                sellAllFish();
+                break;
             case DOCKS:
+                System.out.println("ERROR - ESCAPE NOT IMPLEMENTED YET!!!");
             default:
         }
     }
@@ -157,7 +175,16 @@ public class Game {
         // todo make it harder and value based on some minigame?
     }
 
-
+    private void sellAllFish() {
+        // Sells all fish in inventory. Should only be possible when in the trading village.
+        int value = 0;
+        for (Fish f : fishInventory) {
+            value += f.getValue();
+        }
+        System.out.println("You have gained " + value + " coins!");
+        money += value;
+        fishInventory = new ArrayList<Fish>();
+    }
 
     public boolean hasWon() {
         return this.escaped;
