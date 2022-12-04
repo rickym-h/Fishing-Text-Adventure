@@ -1,4 +1,6 @@
-public class Fish {
+import java.io.Serializable;
+
+public class Fish implements Serializable {
     private int value = 10;
 
     Fish(int value) {

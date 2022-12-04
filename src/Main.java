@@ -1,3 +1,8 @@
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome to my Fishing Game!");
@@ -12,8 +17,18 @@ public class Main {
             // If the player does not want to keep playing, process saving the user data and then quit.
             GameState status = gameInstance.playGameLoop();
             if (status == GameState.SAVE_QUIT) {
-                // todo save the user data and quit
-                System.out.println("Goodbye!");
+                try {
+                    FileOutputStream fileOut = new FileOutputStream("saveFile.txt");
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(gameInstance);
+                    out.close();
+                    fileOut.close();
+                    System.out.println("Successfully saved game!");
+                } catch (IOException e) {
+                    System.out.println("ERROR - Could not save game...");
+                    e.printStackTrace();
+                    System.out.println("ERROR - Could not save game...");
+                }
                 return;
             }
             if (status == GameState.WON) {

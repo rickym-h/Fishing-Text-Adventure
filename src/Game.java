@@ -1,5 +1,6 @@
 import sun.security.util.ArrayUtil;
 
+import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ enum GameState {
     WON
 }
 
-public class Game {
+public class Game implements Serializable {
     private Location location;
     private int money;
     private ArrayList<Fish> fishInventory;
@@ -90,7 +91,7 @@ public class Game {
         }
 
         // 5: Save+Quit
-        possibleActions.add("Save and Quit");
+        possibleActions.add("Save and Quit (WARNING - will overwrite any previous saves)");
 
         // Print out possible actions to the user
         for (int i = 0; i < possibleActions.size(); i++) {
