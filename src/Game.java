@@ -1,3 +1,5 @@
+import sun.security.util.ArrayUtil;
+
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,10 +67,8 @@ public class Game {
         possibleActions.add("View Inventory");
         // 3: Travel
         // 4: Travel
-        for (Location loc : Location.values()) {
-            if (loc == this.location) {
-                continue;
-            }
+        Location[] travelLocations = {getTravelLocation(0), getTravelLocation(1)};
+        for (Location loc : travelLocations) {
             switch (loc) {
                 case FISHING_VILLAGE:
                     possibleActions.add("Travel to fishing village.");
@@ -81,6 +81,7 @@ public class Game {
                 default:
             }
         }
+
         // 5: Save+Quit
         possibleActions.add("Save and Quit");
 
@@ -112,18 +113,38 @@ public class Game {
                 break;
             case 3:
                 // Travel to first location
+                travelToLocation(getTravelLocation(0));
                 break;
             case 4:
                 // Travel to second location
+                travelToLocation(getTravelLocation(1));
                 break;
             case 5:
                 // Save and Quit
+                // todo run save and quit function
                 break;
             default:
         }
 
         return true;
 
+    }
+
+    private void travelToLocation(Location l) {
+        // todo charge fees for travel
+        this.location = l;
+    }
+
+    private Location getTravelLocation(int index) {
+        // Takes an index and finds the Location represented by that index with the current location taken out
+        Location[] possibleLocations = Location.values();
+
+        for (int i = 0; i <= index; i++) {
+            if (possibleLocations[i] == this.location) {
+                return possibleLocations[index+1];
+            }
+        }
+        return possibleLocations[index];
     }
 
     private void viewInventory() {
