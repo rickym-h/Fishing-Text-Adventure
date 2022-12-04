@@ -45,7 +45,7 @@ public class Game {
         // Returns true normally
         // Returns false if the player wants to save and quit.
         System.out.println("PLAYING GAME LOOP");
-        System.out.println("You have " + this.money + " coins. You have " + this.fishInventory.size() + " fish.");
+        System.out.println("You have " + this.money + " coins. You have " + this.fishInventory.size() + " fish. You are currently in the " + this.location);
 
         // Get a list of all the 'things' the user can do.
         ArrayList<String> possibleActions = new ArrayList<String>();
