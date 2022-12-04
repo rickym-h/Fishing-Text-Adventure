@@ -51,7 +51,7 @@ public class Game {
         // Gives the user options of what they can do, and will update the game state accordingly
         // Returns true normally
         // Returns false if the player wants to save and quit.
-        System.out.println("PLAYING GAME LOOP");
+        // todo maybe keep track of days? Each time you travel it is a new day?
         System.out.println("You have " + this.money + " coins. You have " + this.fishInventory.size() + " fish. You are currently in the " + this.location);
 
         // Get a list of all the 'things' the user can do.

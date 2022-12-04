@@ -7,6 +7,7 @@ public class Main {
         // Start game with either a fresh player with no money or fish, or load game with a set number of fish and money
         Game gameInstance = new Game();
 
+
         while (!gameInstance.hasWon()) {
             // If the player does not want to keep playing, process saving the user data and then quit.
             GameState status = gameInstance.playGameLoop();
