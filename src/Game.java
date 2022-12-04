@@ -13,6 +13,12 @@ enum Location {
     DOCKS
 }
 
+enum GameState {
+    PLAYING,
+    SAVE_QUIT,
+    WON
+}
+
 public class Game {
     private Location location;
     private int money;
@@ -23,6 +29,7 @@ public class Game {
         put(Location.TRADING_VILLAGE, 10);
         put(Location.DOCKS, 20);
     }};
+    private int escapeCost = 40;
 
     Game() {
         // Constructor for new game instance
@@ -39,7 +46,7 @@ public class Game {
         // todo remind the player about where they are in the story
     }
 
-    public boolean playGameLoop() {
+    public GameState playGameLoop() {
         // Main loop of a 'round'
         // Gives the user options of what they can do, and will update the game state accordingly
         // Returns true normally
@@ -106,6 +113,9 @@ public class Game {
             case 1:
                 // Perform the interaction
                 interactAction();
+                if (hasWon()) {
+                    return GameState.WON;
+                }
                 break;
             case 2:
                 // View Inventory
@@ -122,11 +132,11 @@ public class Game {
             case 5:
                 // Save and Quit
                 // todo run save and quit function
-                break;
+                return GameState.SAVE_QUIT;
             default:
         }
 
-        return true;
+        return GameState.PLAYING;
 
     }
 
@@ -168,10 +178,20 @@ public class Game {
                 sellAllFish();
                 break;
             case DOCKS:
-                System.out.println("ERROR - ESCAPE NOT IMPLEMENTED YET!!!");
+                attemptEscape();
             default:
         }
     }
+
+    private void attemptEscape() {
+        if (money - escapeCost < 0) {
+            System.out.println("Not enough money to escape...");
+        }
+        money -= escapeCost;
+        escaped = true;
+        System.out.println("You have enough money to escape!");
+    }
+
 
     private static boolean isActionInputValid(String input) {
         try {

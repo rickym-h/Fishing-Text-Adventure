@@ -9,14 +9,20 @@ public class Main {
 
         while (!gameInstance.hasWon()) {
             // If the player does not want to keep playing, process saving the user data and then quit.
-            if (!gameInstance.playGameLoop()) {
+            GameState status = gameInstance.playGameLoop();
+            if (status == GameState.SAVE_QUIT) {
                 // todo save the user data and quit
                 System.out.println("Goodbye!");
                 return;
             }
+            if (status == GameState.WON) {
+                // Congratulate the user and quit.
+                System.out.println("Congratulations on escaping and winning!");
+                break;
+            }
         }
 
-        // Congratulate user for completing the game
-        System.out.println("Congratulations on escaping the plagued village!");
+        // Game has completed
+        System.out.println("Goodbye!!");
     }
 }
