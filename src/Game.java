@@ -1,12 +1,7 @@
-import sun.security.util.ArrayUtil;
-
 import java.io.Serializable;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.function.Function;
 
 enum Location {
     FISHING_VILLAGE,
@@ -25,18 +20,18 @@ public class Game implements Serializable {
     private int money;
     private ArrayList<Fish> fishInventory;
     private boolean escaped = false;
-    private HashMap<Location,Integer> travelFees = new HashMap<Location,Integer>() {{
+    private final HashMap<Location,Integer> travelFees = new HashMap<Location,Integer>() {{
         put(Location.FISHING_VILLAGE, 5);
         put(Location.TRADING_VILLAGE, 10);
         put(Location.DOCKS, 20);
     }};
-    private int escapeCost = 40;
+    private final int escapeCost = 40;
 
     Game() {
         // Constructor for new game instance
         location = Location.FISHING_VILLAGE;
         money = 0;
-        fishInventory = new ArrayList<Fish>();
+        fishInventory = new ArrayList<>();
 
         // todo give the user some detail about the world as they start the game
     }
@@ -50,7 +45,7 @@ public class Game implements Serializable {
         System.out.println("You have " + this.money + " coins. You have " + this.fishInventory.size() + " fish. You are currently in the " + this.location);
 
         // Get a list of all the 'things' the user can do.
-        ArrayList<String> possibleActions = new ArrayList<String>();
+        ArrayList<String> possibleActions = new ArrayList<>();
 
         // 1: Interactions (Fishing or Trading or Escaping)
         switch (this.location) {
@@ -218,7 +213,7 @@ public class Game implements Serializable {
         }
         System.out.println("You have gained " + value + " coins!");
         money += value;
-        fishInventory = new ArrayList<Fish>();
+        fishInventory = new ArrayList<>();
     }
 
     public boolean hasWon() {
