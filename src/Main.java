@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome to my Fishing Game!");
 
-        // todo Query if the user wants to start a new game, or load from a save.
+        // Query if the user wants to start a new game, or load from a save.
         System.out.println("How would you like to play the game?");
         System.out.println("1: Play new game!");
         System.out.println("2: Load game from last save.");

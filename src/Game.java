@@ -41,12 +41,6 @@ public class Game implements Serializable {
         // todo give the user some detail about the world as they start the game
     }
 
-    Game(int money, ArrayList<Fish> fishInventory, Location location) {
-        // Constructor for game with saved game data
-        // todo set the data
-        // todo remind the player about where they are in the story
-    }
-
     public GameState playGameLoop() {
         // Main loop of a 'round'
         // Gives the user options of what they can do, and will update the game state accordingly
@@ -132,7 +126,6 @@ public class Game implements Serializable {
                 break;
             case 5:
                 // Save and Quit
-                // todo run save and quit function
                 return GameState.SAVE_QUIT;
             default:
         }
