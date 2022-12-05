@@ -1,18 +1,45 @@
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome to my Fishing Game!");
 
         // todo Query if the user wants to start a new game, or load from a save.
+        System.out.println("How would you like to play the game?");
+        System.out.println("1: Play new game!");
+        System.out.println("2: Load game from last save.");
 
-        // Start game with either a fresh player with no money or fish, or load game with a set number of fish and money
-        Game gameInstance = new Game();
+        // Get user input, and continue to ask until a valid response is recorded.
+        String input;
+        do {
+            Scanner myScanner = new Scanner(System.in);
+            System.out.print("Please enter your choice: ");
+            input = myScanner.nextLine();
+        } while ((Integer.parseInt(input) != 1) && (Integer.parseInt(input) != 2));
 
+        Game gameInstance;
+        if (Integer.parseInt(input) == 1) {
+            // Start fresh file game
+            System.out.println("Starting new game!");
+            gameInstance = new Game();
+        } else {
+            System.out.println("Attempting to load last saved game...");
+            try {
+                FileInputStream fileIn = new FileInputStream("saveFile.txt");
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                gameInstance = (Game) in.readObject();
+                in.close();
+                fileIn.close();
+            } catch (Exception e) {
+                System.out.println("ERROR - Could not load last save");
+                e.printStackTrace();
+                System.out.println("Loading new game instead!");
+                gameInstance = new Game();
+            }
+        }
 
+        // Starting main game loop
         while (!gameInstance.hasWon()) {
             // If the player does not want to keep playing, process saving the user data and then quit.
             GameState status = gameInstance.playGameLoop();
