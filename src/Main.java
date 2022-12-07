@@ -6,7 +6,7 @@ public class Main {
         System.out.println("Welcome to my Fishing Game!");
 
         // Query if the user wants to start a new game, or load from a save.
-        System.out.println("How would you like to play the game?");
+        HelperFunctions.say("How would you like to play the game?");
         System.out.println("1: Play new game!");
         System.out.println("2: Load game from last save.");
 
