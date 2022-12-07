@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Welcome to my Fishing Game!");
+        HelperFunctions.say("Welcome to my Fishing Game!");
 
         // Query if the user wants to start a new game, or load from a save.
         HelperFunctions.say("How would you like to play the game?");
@@ -21,10 +21,10 @@ public class Main {
         Game gameInstance;
         if (Integer.parseInt(input) == 1) {
             // Start fresh file game
-            System.out.println("Starting new game!");
+            HelperFunctions.say("Starting new game!");
             gameInstance = new Game();
         } else {
-            System.out.println("Attempting to load last saved game...");
+            HelperFunctions.say("Attempting to load last saved game...");
             try {
                 FileInputStream fileIn = new FileInputStream("saveFile.txt");
                 ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -50,7 +50,7 @@ public class Main {
                     out.writeObject(gameInstance);
                     out.close();
                     fileOut.close();
-                    System.out.println("Successfully saved game!");
+                    HelperFunctions.say("Successfully saved game!");
                 } catch (IOException e) {
                     System.out.println("ERROR - Could not save game...");
                     e.printStackTrace();
@@ -60,12 +60,12 @@ public class Main {
             }
             if (status == GameState.WON) {
                 // Congratulate the user and quit.
-                System.out.println("Congratulations on escaping and winning!");
+                HelperFunctions.say("Congratulations on escaping and winning!");
                 break;
             }
         }
 
         // Game has completed
-        System.out.println("Goodbye!!");
+        HelperFunctions.say("Goodbye!!");
     }
 }

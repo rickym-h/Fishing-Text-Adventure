@@ -43,7 +43,7 @@ public class Game implements Serializable {
         // Returns true normally
         // Returns false if the player wants to save and quit.
         // todo maybe keep track of days? Each time you travel it is a new day?
-        System.out.println("You have " + this.money + " coins. You have " + this.fishInventory.size() + " fish. You are currently in the " + this.location);
+        HelperFunctions.say("You have " + this.money + " coins. You have " + this.fishInventory.size() + " fish. You are currently in the " + this.location);
 
         // Get a list of all the 'things' the user can do.
         ArrayList<String> possibleActions = new ArrayList<>();
@@ -85,7 +85,7 @@ public class Game implements Serializable {
 
         // Print out possible actions to the user
         for (int i = 0; i < possibleActions.size(); i++) {
-            System.out.println(i + 1 + ": " + possibleActions.get(i));
+            HelperFunctions.say(i + 1 + ": " + possibleActions.get(i));
         }
 
         // Get user input, and continue to ask until a valid response is recorded.
@@ -149,7 +149,7 @@ public class Game implements Serializable {
 
     private void viewInventory() {
         System.out.println("--------------------");
-        System.out.println("Player Inventory: " + money + " coins. " + fishInventory.size() + " fish.");
+        HelperFunctions.say("Player Inventory: " + money + " coins. " + fishInventory.size() + " fish.");
         for (int i = 0; i < fishInventory.size(); i++) {
             int viewIndex = i+1;
             Fish f = fishInventory.get(i);
@@ -175,11 +175,11 @@ public class Game implements Serializable {
 
     private void attemptEscape() {
         if (money - escapeCost < 0) {
-            System.out.println("Not enough money to escape...");
+            HelperFunctions.say("Not enough money to escape...");
         }
         money -= escapeCost;
         escaped = true;
-        System.out.println("You have enough money to escape!");
+        HelperFunctions.say("You have enough money to escape!");
     }
 
 
@@ -206,20 +206,20 @@ public class Game implements Serializable {
 
         // minigame will come up with a fish name, and get the player to type out the name exactly to get the fish
         String name = Fish.getRandomFishName();
-        System.out.println("You are fishing...");
-        System.out.println("It seems to be very quiet...");
-        System.out.println("You found a fish! - Quick! Type out the name before it escapes!!");
-        System.out.println("It's a '" + name + "'!");
+        HelperFunctions.say("You are fishing...");
+        HelperFunctions.say("It seems to be very quiet...");
+        HelperFunctions.say("You found a fish! - Quick! Type out the name before it escapes!!");
+        HelperFunctions.say("It's a '" + name + "'!");
         Scanner myScanner = new Scanner(System.in);
         System.out.print("Type name: ");
         String input = myScanner.nextLine();
         if (input.equals(name)) {
-            System.out.println("Nice! You caught a " + name + "!!");
+            HelperFunctions.say("Nice! You caught a " + name + "!!");
             Fish fish = new Fish(10, name);
             this.fishInventory.add(fish);
-            System.out.println("It is worth " + fish.getValue() + " coins!");
+            HelperFunctions.say("It is worth " + fish.getValue() + " coins!");
         } else {
-            System.out.println("Unlucky... The " + name + " got away! Make sure you type the name correctly next time!");
+            HelperFunctions.say("Unlucky... The " + name + " got away! Make sure you type the name correctly next time!");
         }
     }
 
@@ -229,7 +229,7 @@ public class Game implements Serializable {
         for (Fish f : fishInventory) {
             value += f.getValue();
         }
-        System.out.println("You have gained " + value + " coins!");
+        HelperFunctions.say("You have gained " + value + " coins!");
         money += value;
         fishInventory = new ArrayList<>();
     }
