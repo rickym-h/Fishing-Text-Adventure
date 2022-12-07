@@ -1,6 +1,7 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Scanner;
 
 enum Location {
@@ -199,10 +200,27 @@ public class Game implements Serializable {
 
     private void fishingInteraction() {
         // Function which will perform the fishing interaction, and get a fish for the user.
-        Fish fish = new Fish(10);
-        this.fishInventory.add(fish);
-        System.out.println("You have gained a fish worth " + fish.getValue() + " coins!");
-        // todo make it harder and value based on some minigame?
+//        Fish fish = new Fish(10);
+//        this.fishInventory.add(fish);
+//        System.out.println("You have gained a fish worth " + fish.getValue() + " coins!");
+
+        // minigame will come up with a fish name, and get the player to type out the name exactly to get the fish
+        String name = Fish.getRandomFishName();
+        System.out.println("You are fishing...");
+        System.out.println("It seems to be very quiet...");
+        System.out.println("You found a fish! - Quick! Type out the name before it escapes!!");
+        System.out.println("It's a '" + name + "'!");
+        Scanner myScanner = new Scanner(System.in);
+        System.out.print("Type name: ");
+        String input = myScanner.nextLine();
+        if (input.equals(name)) {
+            System.out.println("Nice! You caught a " + name + "!!");
+            Fish fish = new Fish(10, name);
+            this.fishInventory.add(fish);
+            System.out.println("It is worth " + fish.getValue() + " coins!");
+        } else {
+            System.out.println("Unlucky... The " + name + " got away! Make sure you type the name correctly next time!");
+        }
     }
 
     private void sellAllFish() {
