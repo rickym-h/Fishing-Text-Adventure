@@ -21,7 +21,7 @@ public class Main {
         Game gameInstance;
         if (Integer.parseInt(input) == 1) {
             // Start fresh file game
-            HelperFunctions.say("Starting new game!");
+            System.out.println("Starting new game!");
             gameInstance = new Game();
         } else {
             HelperFunctions.say("Attempting to load last saved game...");

@@ -1,7 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Scanner;
 
 enum Location {
@@ -34,7 +33,13 @@ public class Game implements Serializable {
         money = 0;
         fishInventory = new ArrayList<>();
 
-        // todo give the user some detail about the world as they start the game
+        HelperFunctions.say("You wake up... Drowsy and wet - at the edge of some kind of fishing village?");
+        HelperFunctions.pause();
+        HelperFunctions.say("Seems like a ratty run down place... They dont even seem to sell fresh water...");
+        HelperFunctions.pause();
+        HelperFunctions.say("You're a thousand leagues from home! Better make some coin to get back!");
+        HelperFunctions.pause();
+        HelperFunctions.say("You've got to be careful though, in 10 days you're going to run out of fresh water...");
     }
 
     public GameState playGameLoop() {
@@ -43,6 +48,8 @@ public class Game implements Serializable {
         // Returns true normally
         // Returns false if the player wants to save and quit.
         // todo maybe keep track of days? Each time you travel it is a new day?
+        System.out.println();
+        System.out.println("------------------------------------------------------------");
         HelperFunctions.say("You have " + this.money + " coins. You have " + this.fishInventory.size() + " fish. You are currently in the " + this.location);
 
         // Get a list of all the 'things' the user can do.
