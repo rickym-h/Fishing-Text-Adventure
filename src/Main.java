@@ -33,7 +33,7 @@ public class Main {
                 fileIn.close();
             } catch (Exception e) {
                 System.out.println("ERROR - Could not load last save");
-                e.printStackTrace();
+                //e.printStackTrace();
                 System.out.println("Loading new game instead!");
                 gameInstance = new Game();
             }
