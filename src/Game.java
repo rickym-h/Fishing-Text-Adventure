@@ -156,11 +156,11 @@ public class Game implements Serializable {
 
     private void viewInventory() {
         System.out.println("--------------------");
-        HelperFunctions.say("Player Inventory: " + money + " coins. " + fishInventory.size() + " fish.");
+        System.out.println("Player Inventory: " + money + " coins. " + fishInventory.size() + " fish.");
         for (int i = 0; i < fishInventory.size(); i++) {
             int viewIndex = i+1;
             Fish f = fishInventory.get(i);
-            System.out.println("  " + viewIndex + ": " + f.getName() + " - (Value = " + f.getValue() + ")");
+            System.out.println("  " + viewIndex + ": " + f.getName() + " - (Value: " + f.getValue() + " coins)");
         }
         System.out.println("--------------------");
     }
